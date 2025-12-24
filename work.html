@@ -69,6 +69,7 @@
             padding: 30px; opacity: 0; transition: 0.4s;
         }
 
+        /* Desktop Hover Effects */
         .project-card:hover .project-img { transform: scale(1.1); filter: grayscale(0%); }
         .project-card:hover .project-overlay { opacity: 1; }
 
@@ -113,10 +114,17 @@
             height: 0; background: #000;
         }
         
+        /* --- MOBILE FIXES --- */
         @media (max-width: 768px) {
             .work-title { font-size: 3.5rem; }
             .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 250px; }
             .project-card.wide, .project-card.tall { grid-column: span 1; grid-row: span 1; }
+            
+            /* FIX: Make overlay always visible on mobile */
+            .project-overlay { opacity: 1; }
+            .project-img { filter: grayscale(0%); }
+            .play-icon { transform: translate(-50%, -50%) scale(1); }
+            .project-title { transform: translateY(0); }
         }
     </style>
 </head>
@@ -134,6 +142,7 @@
         <button class="filter-btn" data-filter="music">Music Videos</button>
         <button class="filter-btn" data-filter="commercial">Commercials</button>
         <button class="filter-btn" data-filter="docu">Documentaries</button>
+        <button class="filter-btn" data-filter="docu">Jainism Visuals</button>
     </div>
 
     <section class="gallery-grid">
@@ -214,29 +223,28 @@
                 });
             });
 
-            // 2. MODAL LOGIC (With Auto Play Enabled in Popup)
+            // 2. MODAL LOGIC (Auto Play in Popup)
             const modal = document.getElementById('videoModal');
             const closeModal = document.getElementById('closeModal');
             const videoContainer = document.querySelector('.video-container');
 
-            // Open Modal
             projects.forEach(project => {
                 project.addEventListener('click', () => {
                     const videoType = project.getAttribute('data-type');
                     const videoSrc = project.getAttribute('data-video');
 
                     modal.classList.add('active');
-                    videoContainer.innerHTML = ''; // Clear previous
+                    videoContainer.innerHTML = ''; 
 
                     if (videoType === 'local') {
-                        // LOCAL VIDEO: Added 'autoplay' attribute
+                        // LOCAL: Autoplay ON in popup
                         videoContainer.innerHTML = `
                             <video controls autoplay name="media" style="position:absolute; top:0; left:0; width:100%; height:100%;">
                                 <source src="${videoSrc}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>`;
                     } else {
-                        // YOUTUBE: Force Autoplay ON (autoplay=1)
+                        // YOUTUBE: Autoplay ON in popup
                         const url = videoSrc || "https://www.youtube.com/embed/ScMzIvxBSi4";
                         const separator = url.includes('?') ? '&' : '?';
                         const finalUrl = `${url}${separator}autoplay=1`; 
@@ -247,10 +255,10 @@
                 });
             });
 
-            // Close Modal Function
+            // Close Modal
             const closeVideo = () => {
                 modal.classList.remove('active');
-                videoContainer.innerHTML = ''; // Clear video to stop sound
+                videoContainer.innerHTML = ''; 
             };
 
             closeModal.addEventListener('click', closeVideo);
