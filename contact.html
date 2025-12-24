@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Namo Production</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/style.css">
+    
+    <style>
+        /* --- PAGE SPECIFIC STYLES --- */
+        body { min-height: 100vh; background: #050505; }
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9000; opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        }
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            padding-top: 80px; 
+        }
+        .contact-info-panel {
+            padding: 100px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid #222;
+            position: relative;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #333;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 30px;
+            width: fit-content;
+        }
+        .status-dot {
+            width: 8px; height: 8px; background: var(--primary);
+            border-radius: 50%; margin-right: 10px;
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulse 2s infinite;
+        }
+        .headline {
+            font-size: 4rem;
+            line-height: 1;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+        .contact-details div { margin-bottom: 30px; }
+        .contact-label {
+            font-family: 'Oswald', sans-serif;
+            color: #666; font-size: 0.9rem; margin-bottom: 5px;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+        .contact-value { font-size: 1.5rem; color: #fff; transition: 0.3s; }
+        .contact-value:hover { color: var(--primary); }
+        .social-row { margin-top: 50px; display: flex; gap: 20px; }
+        .social-btn {
+            width: 50px; height: 50px; border: 1px solid #333;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; transition: 0.3s; font-size: 1.2rem;
+        }
+        .social-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 20px rgba(223, 255, 0, 0.4); }
+        .form-panel {
+            padding: 100px 10%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .form-group { position: relative; margin-bottom: 40px; }
+        .form-input {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 1px solid #333; padding: 15px 0;
+            color: #fff; font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem; transition: 0.4s; border-radius: 0;
+        }
+        .form-input:focus { outline: none; border-bottom-color: var(--primary); }
+        .form-label {
+            position: absolute; top: 15px; left: 0; color: #666;
+            pointer-events: none; transition: 0.4s;
+        }
+        .form-input:focus ~ .form-label, .form-input:valid ~ .form-label {
+            top: -20px; font-size: 0.8rem; color: var(--primary);
+        }
+        .budget-options { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px; }
+        .budget-radio { display: none; }
+        .budget-label {
+            padding: 10px 20px; border: 1px solid #333; color: #888;
+            cursor: pointer; font-size: 0.9rem; transition: 0.3s;
+        }
+        .budget-radio:checked + .budget-label {
+            border-color: var(--primary); color: var(--primary); background: rgba(223, 255, 0, 0.05);
+        }
+        .submit-btn {
+            background: transparent; color: #fff; border: 1px solid #fff;
+            padding: 20px 50px; font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem; letter-spacing: 2px; cursor: pointer;
+            margin-top: 30px; transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .submit-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+        .success-message {
+            display: none; margin-top: 20px; color: var(--primary); font-weight: 600;
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        @media (max-width: 900px) {
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .contact-info-panel, .form-panel { padding: 60px 5%; border: none; }
+            .headline { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+    <div id="universal-header"></div>
+
+    <div class="contact-wrapper">
+        
+        <div class="contact-info-panel">
+            <div class="status-badge">
+                <span class="status-dot"></span> ACCEPTING NEW PROJECTS
+            </div>
+            
+            <h1 class="headline">LET'S CREATE<br><span style="color: var(--primary)">SOMETHING EPIC.</span></h1>
+            
+            <div class="contact-details">
+                <div>
+                    <div class="contact-label">EMAIL</div>
+                    <a href="mailto:hello@namoproduction.com" class="contact-value">hello@namoproduction.com</a>
+                </div>
+                <div>
+                    <div class="contact-label">PHONE</div>
+                    <a href="tel:+919630976796" class="contact-value">+91 96309 76796</a> <br>
+                    <a href="tel:+918236045863" class="contact-value">+91 82360 45863</a> <br>
+                    <a href="tel:+918299637888" class="contact-value">+91 82996 37888</a>
+                </div>
+                <div>
+                    <div class="contact-label">STUDIO</div>
+                    <div class="contact-value" style="font-size: 1.2rem;">Indore, Madhya Pradesh, India</div>
+                </div>
+            </div>
+
+            <div class="social-row">
+                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <div class="form-panel">
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                <div class="form-group">
+                    <input type="text" name="name" class="form-input" required>
+                    <label class="form-label">What's your name?</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" name="email" class="form-input" required>
+                    <label class="form-label">Your email address?</label>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" name="brand" class="form-input" required>
+                    <label class="form-label">Organization / Brand Name</label>
+                </div>
+
+                <div class="form-group">
+                    <label style="color:#666; font-size: 0.9rem; display:block; margin-bottom:10px;">Project Budget (INR)</label>
+                    <div class="budget-options">
+                        <label>
+                            <input type="radio" name="budget" value="< 50k" class="budget-radio">
+                            <span class="budget-label">&lt; ₹50k</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="budget" value="50k-1L" class="budget-radio">
+                            <span class="budget-label">₹50k - ₹1L</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="budget" value="1L-5L" class="budget-radio">
+                            <span class="budget-label">₹1L - ₹5L</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="budget" value="5L+" class="budget-radio">
+                            <span class="budget-label">₹5L+</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <textarea name="message" class="form-input" rows="1" required style="resize: none;" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+                    <label class="form-label">Tell us about your project</label>
+                </div>
+
+                <button type="submit" class="submit-btn">SEND INQUIRY</button>
+                <div class="success-message" id="successMsg">Message Sent! We'll get back to you soon.</div>
+                <div class="success-message" id="errorMsg" style="color: red;">Something went wrong. Please try again.</div>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="universal-footer"></div>
+    <script src="main.js"></script>
+
+    <script>
+        // --- FORM SUBMISSION LOGIC (AJAX) ---
+        const form = document.getElementById('contactForm');
+        const result = document.getElementById('successMsg');
+        const error = document.getElementById('errorMsg');
+        const btn = document.querySelector('.submit-btn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            // Change button state
+            btn.innerHTML = 'SENDING...';
+            btn.style.opacity = '0.7';
+            result.style.display = 'none';
+            error.style.display = 'none';
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    btn.innerHTML = 'SENT';
+                    btn.style.background = 'var(--primary)';
+                    btn.style.color = '#000';
+                    result.style.display = 'block';
+                    form.reset();
+                } else {
+                    console.log(response);
+                    btn.innerHTML = 'RETRY';
+                    error.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                btn.innerHTML = 'RETRY';
+                error.style.display = 'block';
+            })
+            .then(function() {
+                // Reset button text after 3 seconds
+                setTimeout(() => {
+                    btn.innerHTML = 'SEND INQUIRY';
+                    btn.style.opacity = '1';
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#fff';
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Namo Production</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/style.css">
+    
+    <style>
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9000; opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        }
+
+        .tech-grid-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+       
+        .page-header {
+            padding: 200px 5% 100px;
+            text-align: left;
+            border-bottom: 1px solid #222;
+            position: relative;
+        }
+        
+        .big-title {
+            font-size: 5rem;
+            color: transparent;
+            -webkit-text-stroke: 2px #fff;
+            opacity: 0.5;
+            margin-bottom: 10px;
+            animation: fillText 1s forwards 0.5s;
+        }
+
+        .subtitle-text {
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            max-width: 600px;
+        }
+
+      
+        .service-row {
+            display: flex;
+            align-items: center;
+            min-height: 80vh;
+            border-bottom: 1px solid #222;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-row:nth-child(even) {
+            flex-direction: row-reverse; /* Flip layout for even items */
+        }
+
+        .service-content {
+            flex: 1;
+            padding: 80px;
+            z-index: 2;
+        }
+
+        .service-image-wrapper {
+            flex: 1;
+            height: 100%;
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+            border-left: 1px solid #222;
+            border-right: 1px solid #222;
+        }
+
+        .service-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+            transition: all 0.6s ease;
+        }
+        
+        .service-row:hover .service-img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        /* Typography styling */
+        .service-num {
+            font-size: 8rem;
+            font-family: 'Oswald', sans-serif;
+            color: transparent;
+            -webkit-text-stroke: 1px #333;
+            line-height: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .service-row:hover .service-num {
+            -webkit-text-stroke: 1px var(--primary);
+        }
+
+        .service-title {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .service-title::after {
+            content: '';
+            position: absolute; bottom: -10px; left: 0;
+            width: 50px; height: 3px; background: var(--primary);
+            transition: 0.4s;
+        }
+        
+        .service-row:hover .service-title::after {
+            width: 100%;
+        }
+
+        .feature-list {
+            margin-top: 30px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+        
+        .feature-list li i {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 0.8rem;
+        }
+
+        @keyframes fillText {
+            to { color: #fff; opacity: 1; -webkit-text-stroke: 0; }
+        }
+
+
+        @media (max-width: 900px) {
+            .page-header { padding-top: 150px; }
+            .big-title { font-size: 3.5rem; }
+            .service-row { flex-direction: column !important; min-height: auto; }
+            .service-image-wrapper { width: 100%; height: 300px; min-height: auto; }
+            .service-content { padding: 40px 5%; }
+            .service-num { font-size: 5rem; }
+            .service-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+    <div class="tech-grid-bg"></div>
+
+  <div id="universal-header"></div>
+
+    <header class="page-header">
+        <h1 class="big-title">OUR EXPERTISE</h1>
+        <p class="subtitle-text">WE BLEND TECHNICAL PRECISION WITH ARTISTIC VISION TO CREATE COMPELLING VISUAL NARRATIVES.</p>
+    </header>
+
+    <div class="service-row">
+        <div class="service-content">
+            <div class="service-num">01</div>
+            <h2 class="service-title">PRE-PRODUCTION</h2>
+            <p style="color: #999; line-height: 1.8;">The blueprint of every great film. We meticulously plan every detail, from the initial spark of an idea to the final shooting schedule, ensuring a seamless production process.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-square"></i> Creative Direction & Concept Development</li>
+                <li><i class="fas fa-square"></i> Scriptwriting & Storyboarding</li>
+                <li><i class="fas fa-square"></i> Casting & Talent Management</li>
+                <li><i class="fas fa-square"></i> Location Scouting & Permitting</li>
+            </ul>
+        </div>
+        <div class="service-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6?q=80&w=2670" class="service-img" alt="Pre-Production">
+        </div>
+    </div>
+
+    <div class="service-row">
+        <div class="service-content">
+            <div class="service-num">02</div>
+            <h2 class="service-title">PRODUCTION</h2>
+            <p style="color: #999; line-height: 1.8;">Lights, Camera, Action. We deploy industry-standard equipment and experienced crews to capture cinematic imagery that elevates your brand's story.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-square"></i> 6K Cinema Cameras (RED / ARRI / SONY)</li>
+                <li><i class="fas fa-square"></i> Professional Lighting & Grip</li>
+                <li><i class="fas fa-square"></i> Aerial / Drone Cinematography</li>
+                <li><i class="fas fa-square"></i> High-Fidelity Audio Recording</li>
+            </ul>
+        </div>
+        <div class="service-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2671" class="service-img" alt="Production">
+        </div>
+    </div>
+
+    <div class="service-row">
+        <div class="service-content">
+            <div class="service-num">03</div>
+            <h2 class="service-title">POST-PRODUCTION</h2>
+            <p style="color: #999; line-height: 1.8;">Where the magic happens. Our editors and artists polish the raw footage, adding rhythm, color, and sound to create the final masterpiece.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-square"></i> Offline & Online Editing</li>
+                <li><i class="fas fa-square"></i> Color Grading (DaVinci Resolve)</li>
+                <li><i class="fas fa-square"></i> VFX & Motion Graphics</li>
+                <li><i class="fas fa-square"></i> Sound Design & Final Mix</li>
+            </ul>
+        </div>
+        <div class="service-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44c?q=80&w=2670" class="service-img" alt="Post-Production">
+        </div>
+    </div>
+
+    <div style="padding: 100px 5%; text-align: center; background: #000; border-top: 1px solid #222;">
+        <h2 style="font-size: 3rem; margin-bottom: 20px;">READY TO SHOOT?</h2>
+        <a href="contact.html" class="btn">GET A QUOTE</a>
+    </div>
+
+    <div id="universal-footer"></div>
+
+    <script>
+        // Hamburger Menu Logic
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-links");
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+        });
+
+        // Navbar Scroll Logic
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(5,5,5,0.95)';
+            } else {
+                nav.style.background = 'transparent';
+            }
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
