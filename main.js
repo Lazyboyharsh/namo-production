@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const faviconLink = document.createElement('link');
     faviconLink.rel = 'shortcut icon';
-    faviconLink.href = '/images/namo-favicon.png'; 
+    faviconLink.href = './images/namo-favicon.png'; 
     document.head.appendChild(faviconLink);
 
     const navbarHTML = `
