@@ -10,9 +10,9 @@
     
     <style>
         /* --- PAGE SPECIFIC STYLES --- */
+        body { min-height: 100vh; background: #050505; color: white; margin: 0; font-family: 'Montserrat', sans-serif; }
         
-        body { min-height: 100vh; background: #050505; }
-        
+        /* Noise Effect */
         .noise-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9000; opacity: 0.05;
@@ -20,183 +20,101 @@
         }
 
         /* Header */
-        .work-header {
-            padding: 150px 5% 50px;
-            text-align: left;
-        }
-
+        .work-header { padding: 150px 5% 50px; text-align: left; }
         .work-title {
-            font-size: 6rem;
-            line-height: 0.9;
-            color: transparent;
-            -webkit-text-stroke: 2px #fff;
-            opacity: 0.3;
-            margin-bottom: 20px;
-            transition: 0.5s;
+            font-size: 6rem; line-height: 0.9; color: transparent;
+            -webkit-text-stroke: 2px #fff; opacity: 0.3; margin-bottom: 20px; transition: 0.5s;
+            font-family: 'Oswald', sans-serif;
         }
-        
         .work-title:hover { opacity: 1; text-shadow: 0 0 30px rgba(255,255,255,0.2); }
 
         /* Filter Buttons */
-        .filter-container {
-            padding: 0 5% 40px;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
+        .filter-container { padding: 0 5% 40px; display: flex; gap: 20px; flex-wrap: wrap; }
         .filter-btn {
-            background: transparent;
-            border: 1px solid #333;
-            color: #888;
-            padding: 10px 25px;
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.4s;
+            background: transparent; border: 1px solid #333; color: #888;
+            padding: 10px 25px; font-family: 'Oswald', sans-serif; text-transform: uppercase;
+            letter-spacing: 2px; cursor: pointer; transition: 0.4s;
         }
-
         .filter-btn:hover, .filter-btn.active {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: rgba(223, 255, 0, 0.05);
+            border-color: #fff; color: #fff; background: rgba(255, 255, 255, 0.05);
         }
 
         /* Masonry Grid */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 300px;
-            gap: 15px;
-            padding: 0 5% 100px;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 300px; gap: 15px; padding: 0 5% 100px;
         }
-
+        
         /* Card Styling */
         .project-card {
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            background: #111;
+            position: relative; overflow: hidden; cursor: pointer; background: #111;
             transition: transform 0.3s ease;
         }
-
-        /* Making grid interesting with spans */
         .project-card.wide { grid-column: span 2; }
         .project-card.tall { grid-row: span 2; }
 
         .project-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
             transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
             filter: grayscale(100%);
         }
+        
+        /* Local Video Preview Styling */
+        video.project-img { object-fit: cover; }
 
         .project-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 60%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            opacity: 0;
-            transition: 0.4s;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 30px; opacity: 0; transition: 0.4s;
         }
 
         /* Hover Effects */
-        .project-card:hover .project-img {
-            transform: scale(1.1);
-            filter: grayscale(0%);
-        }
-
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
+        .project-card:hover .project-img { transform: scale(1.1); filter: grayscale(0%); }
+        .project-card:hover .project-overlay { opacity: 1; }
 
         .play-icon {
-            position: absolute;
-            top: 50%; left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            font-size: 3rem;
-            color: var(--primary);
+            font-size: 3rem; color: #fff;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .project-card:hover .play-icon {
-            transform: translate(-50%, -50%) scale(1);
-        }
+        .project-card:hover .play-icon { transform: translate(-50%, -50%) scale(1); }
 
         .project-cat {
-            color: var(--primary);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
+            color: #ccc; font-size: 0.8rem; text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 5px;
         }
-
         .project-title {
-            font-size: 1.5rem;
-            font-family: 'Oswald', sans-serif;
-            transform: translateY(20px);
-            transition: 0.4s;
+            font-size: 1.5rem; font-family: 'Oswald', sans-serif;
+            transform: translateY(20px); transition: 0.4s; color: white;
         }
+        .project-card:hover .project-title { transform: translateY(0); }
 
-        .project-card:hover .project-title {
-            transform: translateY(0);
-        }
-
-        /* Video Modal (Lightbox) */
+        /* --- VIDEO MODAL (LIGHTBOX) --- */
         .video-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 10000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: 0.3s;
         }
+        .video-modal.active { opacity: 1; pointer-events: all; }
 
-        .video-modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-content {
-            width: 80%;
-            max-width: 1000px;
-            position: relative;
-        }
+        .modal-content { width: 80%; max-width: 1000px; position: relative; }
 
         .close-modal {
-            position: absolute;
-            top: -50px;
-            right: 0;
-            color: #fff;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: 0.3s;
+            position: absolute; top: -50px; right: 0; color: #fff;
+            font-size: 3rem; cursor: pointer; transition: 0.3s; z-index: 10001;
         }
-
-        .close-modal:hover { color: var(--primary); }
+        .close-modal:hover { color: #ff0000; }
 
         .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            background: #000;
+            position: relative; width: 100%;
+            /* 16:9 Aspect Ratio Hack */
+            padding-bottom: 56.25%; 
+            height: 0; background: #000;
         }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
+        
         /* Mobile */
         @media (max-width: 768px) {
             .work-title { font-size: 3.5rem; }
@@ -208,10 +126,7 @@
 <body>
 
     <div class="noise-overlay"></div>
-
- <div id="universal-header"></div>
-
-    <div class="work-header">
+    <div id="universal-header"></div> <div class="work-header">
         <h1 class="work-title">SELECTED<br><span style="color:#fff; opacity:1; -webkit-text-stroke:0;">WORKS</span></h1>
     </div>
 
@@ -224,8 +139,14 @@
 
     <section class="gallery-grid">
         
-        <div class="project-card wide" data-category="music">
-            <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2670" class="project-img" alt="Project 1">
+        <div class="project-card wide" data-category="music" 
+             data-type="local" 
+             data-video="Aligning_Reel_with_Website_Theme.mp4">
+             
+            <video class="project-img" autoplay muted loop playsinline>
+                <source src="Aligning_Reel_with_Website_Theme.mp4" type="video/mp4">
+            </video>
+
             <div class="project-overlay">
                 <i class="fas fa-play-circle play-icon"></i>
                 <div class="project-cat">MUSIC VIDEO</div>
@@ -233,7 +154,10 @@
             </div>
         </div>
 
-        <div class="project-card" data-category="commercial">
+        <div class="project-card" data-category="commercial" 
+             data-type="youtube" 
+             data-video="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1">
+             
             <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?q=80&w=2656" class="project-img" alt="Project 2">
             <div class="project-overlay">
                 <i class="fas fa-play-circle play-icon"></i>
@@ -242,7 +166,10 @@
             </div>
         </div>
 
-        <div class="project-card tall" data-category="docu">
+        <div class="project-card tall" data-category="docu"
+             data-type="youtube"
+             data-video="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1">
+             
             <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2671" class="project-img" alt="Project 3">
             <div class="project-overlay">
                 <i class="fas fa-play-circle play-icon"></i>
@@ -251,121 +178,97 @@
             </div>
         </div>
 
-        <div class="project-card" data-category="music">
-            <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=2670" class="project-img" alt="Project 4">
-            <div class="project-overlay">
-                <i class="fas fa-play-circle play-icon"></i>
-                <div class="project-cat">MUSIC VIDEO</div>
-                <h3 class="project-title">DESI BEATS VOL.1</h3>
-            </div>
-        </div>
-
-        <div class="project-card" data-category="commercial">
-            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2670" class="project-img" alt="Project 5">
-            <div class="project-overlay">
-                <i class="fas fa-play-circle play-icon"></i>
-                <div class="project-cat">CORPORATE</div>
-                <h3 class="project-title">STARTUP INDIA</h3>
-            </div>
-        </div>
-
-        <div class="project-card wide" data-category="docu">
-            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e63?q=80&w=2608" class="project-img" alt="Project 6">
-            <div class="project-overlay">
-                <i class="fas fa-play-circle play-icon"></i>
-                <div class="project-cat">SHORT FILM</div>
-                <h3 class="project-title">THE LAST TRAIN</h3>
-            </div>
-        </div>
-
-    </section>
+        </section>
 
     <div class="video-modal" id="videoModal">
         <div class="modal-content">
             <div class="close-modal" id="closeModal">&times;</div>
             <div class="video-container">
-                <iframe id="videoFrame" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+                </div>
         </div>
     </div>
 
-   <div id="universal-footer"></div>
+    <div id="universal-footer"></div>
 
     <script>
-        // Hamburger Menu Logic
-        const hamburger = document.querySelector(".hamburger");
-        const navMenu = document.querySelector(".nav-links");
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-            navMenu.classList.toggle("active");
-        });
+        document.addEventListener('DOMContentLoaded', () => {
 
-        // --- FILTER LOGIC ---
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const projects = document.querySelectorAll('.project-card');
+            // 1. FILTER LOGIC
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projects = document.querySelectorAll('.project-card');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
 
-                const filterValue = btn.getAttribute('data-filter');
+                    const filterValue = btn.getAttribute('data-filter');
 
-                projects.forEach(project => {
-                    if (filterValue === 'all' || project.getAttribute('data-category') === filterValue) {
-                        project.style.display = 'block';
-                        // Small animation when appearing
-                        setTimeout(() => project.style.opacity = '1', 100);
+                    projects.forEach(project => {
+                        if (filterValue === 'all' || project.getAttribute('data-category') === filterValue) {
+                            project.style.display = 'block';
+                            setTimeout(() => project.style.opacity = '1', 100);
+                        } else {
+                            project.style.display = 'none';
+                            project.style.opacity = '0';
+                        }
+                    });
+                });
+            });
+
+            // 2. SMART MODAL LOGIC (Youtube + Local)
+            const modal = document.getElementById('videoModal');
+            const closeModal = document.getElementById('closeModal');
+            const videoContainer = document.querySelector('.video-container');
+
+            // Open Modal
+            projects.forEach(project => {
+                project.addEventListener('click', () => {
+                    const videoType = project.getAttribute('data-type');
+                    const videoSrc = project.getAttribute('data-video');
+
+                    modal.classList.add('active');
+                    videoContainer.innerHTML = ''; // Clear old video
+
+                    if (videoType === 'local') {
+                        // Inject Local Video Player
+                        videoContainer.innerHTML = `
+                            <video controls autoplay name="media" style="position:absolute; top:0; left:0; width:100%; height:100%;">
+                                <source src="${videoSrc}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>`;
                     } else {
-                        project.style.display = 'none';
-                        project.style.opacity = '0';
+                        // Inject YouTube Iframe
+                        const url = videoSrc || "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1";
+                        videoContainer.innerHTML = `
+                            <iframe src="${url}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"></iframe>`;
                     }
                 });
             });
-        });
 
-        // --- MODAL / LIGHTBOX LOGIC ---
-        const modal = document.getElementById('videoModal');
-        const closeModal = document.getElementById('closeModal');
-        const videoFrame = document.getElementById('videoFrame');
-        
-        // Use a generic placeholder video for demo purposes
-        // In real usage, you would put the specific YouTube ID in the project card as a data-attribute
-        const demoVideoUrl = "https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1"; 
-
-        projects.forEach(project => {
-            project.addEventListener('click', () => {
-                modal.classList.add('active');
-                videoFrame.src = demoVideoUrl;
-            });
-        });
-
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-            videoFrame.src = ""; // Stop video
-        });
-
-        // Close modal if clicking outside content
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) {
+            // Close Modal Function
+            const closeVideo = () => {
                 modal.classList.remove('active');
-                videoFrame.src = "";
-            }
-        });
+                videoContainer.innerHTML = ''; // Stop playback
+            };
 
-        // Navbar Scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.background = 'rgba(5,5,5,0.95)';
-            } else {
-                nav.style.background = 'transparent';
-            }
+            closeModal.addEventListener('click', closeVideo);
+
+            // Close when clicking outside
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) closeVideo();
+            });
+
+            // Navbar Scroll Effect
+            window.addEventListener('scroll', () => {
+                const nav = document.querySelector('nav');
+                if(nav) {
+                    nav.style.background = window.scrollY > 50 ? 'rgba(5,5,5,0.95)' : 'transparent';
+                }
+            });
+
         });
     </script>
     <script src="main.js"></script>
-    
 </body>
 </html>
