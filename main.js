@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 <li><a href="services.html">SERVICES</a></li>
                 <li><a href="work.html">PORTFOLIO</a></li>
                 <li><a href="contact.html">CONTACT</a></li>
-                <li><a href="#" class="highlight-link">NAMO JAINISM</a></li>
             </ul>
         </nav>
     `;
